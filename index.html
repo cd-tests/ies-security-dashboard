@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>CEDIA · Panorama de Seguridad IES Ecuador 2025-2026</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>CEDIA - Panorama de Seguridad IES Ecuador 2025-2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -12,22 +12,17 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Montserrat',sans-serif;background:#020029;color:#e2e3d5;min-height:100vh;}
-
-.top-bar{background:linear-gradient(90deg,#020029 0%,#0c0c43 100%);border-bottom:2px solid #29c6ff;padding:10px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:999;}
+.top-bar{background:linear-gradient(90deg,#020029,#0c0c43);border-bottom:2px solid #29c6ff;padding:10px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:999;}
 .top-bar img{height:36px;}
-.top-bar-right{text-align:right;}
-.top-bar-right .title{font-size:13px;font-weight:700;color:#29c6ff;letter-spacing:1px;text-transform:uppercase;}
-.top-bar-right .subtitle{font-size:10px;color:#a0aac0;margin-top:2px;}
-
+.tbr .title{font-size:13px;font-weight:700;color:#29c6ff;letter-spacing:1px;text-transform:uppercase;}
+.tbr .sub{font-size:10px;color:#a0aac0;margin-top:2px;text-align:right;}
 .tabs{display:flex;background:#0a0a35;border-bottom:1px solid #1a2050;padding:0 16px;overflow-x:auto;gap:4px;position:sticky;top:58px;z-index:998;}
 .tab{padding:9px 16px;font-size:11px;font-weight:600;letter-spacing:.5px;color:#7080a0;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;text-transform:uppercase;}
 .tab:hover{color:#29c6ff;}
 .tab.active{color:#29c6ff;border-bottom-color:#29c6ff;}
-
-.panel{display:none;padding:16px;animation:fadeIn .3s ease;}
+.panel{display:none;padding:16px;animation:fi .3s ease;}
 .panel.active{display:block;}
-@keyframes fadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
-
+@keyframes fi{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 .kpi-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:14px;}
 .kpi{background:linear-gradient(135deg,#0c0c43,#101060);border:1px solid #1e2a6e;border-radius:10px;padding:12px 14px;position:relative;overflow:hidden;}
 .kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
@@ -39,167 +34,147 @@ body{font-family:'Montserrat',sans-serif;background:#020029;color:#e2e3d5;min-he
 .kpi-val{font-size:22px;font-weight:800;color:#fff;line-height:1;}
 .kpi-label{font-size:9.5px;color:#7080a0;margin-top:5px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;}
 .kpi-sub{font-size:9px;color:#4a5568;margin-top:3px;}
-
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
-.grid-2-1{display:grid;grid-template-columns:2fr 1fr;gap:12px;}
-
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+.g21{display:grid;grid-template-columns:2fr 1fr;gap:12px;}
 .card{background:#0a0a35;border:1px solid #1a2050;border-radius:10px;padding:14px;overflow:hidden;}
-.card-title{font-size:10px;font-weight:700;color:#29c6ff;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
-.card-title span{background:#29c6ff22;padding:2px 8px;border-radius:20px;}
-
-.chart-wrap{position:relative;height:200px;}
-.chart-wrap-sm{position:relative;height:160px;}
-.chart-wrap-lg{position:relative;height:260px;}
-
+.ct{font-size:10px;font-weight:700;color:#29c6ff;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;}
+.ct span{background:#29c6ff22;padding:2px 8px;border-radius:20px;margin-right:6px;}
+.cw{position:relative;height:200px;}
+.cwsm{position:relative;height:160px;}
+.cwlg{position:relative;height:260px;}
 #map{height:340px;border-radius:8px;border:1px solid #1a2050;}
-
 .tbl{width:100%;border-collapse:collapse;font-size:10px;}
 .tbl th{background:#0c0c43;color:#29c6ff;font-size:9px;font-weight:700;letter-spacing:.5px;padding:6px 8px;text-align:left;text-transform:uppercase;border-bottom:1px solid #1e2a6e;}
 .tbl td{padding:5px 8px;border-bottom:1px solid #111840;color:#c0cce0;vertical-align:middle;}
 .tbl tr:hover td{background:#1a2050;}
-.tbl-wrap{max-height:240px;overflow-y:auto;}
-.tbl-wrap::-webkit-scrollbar{width:4px;}
-.tbl-wrap::-webkit-scrollbar-track{background:#060620;}
-.tbl-wrap::-webkit-scrollbar-thumb{background:#29c6ff44;border-radius:2px;}
-
+.tw{max-height:240px;overflow-y:auto;}
+.tw::-webkit-scrollbar{width:4px;}
+.tw::-webkit-scrollbar-thumb{background:#29c6ff44;border-radius:2px;}
 .badge{display:inline-block;width:22px;height:22px;border-radius:50%;font-size:10px;font-weight:800;line-height:22px;text-align:center;}
-.badge-A{background:#22d48a22;color:#22d48a;border:1px solid #22d48a66;}
-.badge-B{background:#29c6ff22;color:#29c6ff;border:1px solid #29c6ff66;}
-.badge-C{background:#f5a62322;color:#f5a623;border:1px solid #f5a62366;}
-.badge-D{background:#ff7b2022;color:#ff7b20;border:1px solid #ff7b2066;}
-.badge-F{background:#ff4d6d22;color:#ff4d6d;border:1px solid #ff4d6d66;}
-
-.pbar-wrap{display:flex;align-items:center;gap:8px;margin:4px 0;}
-.pbar-label{font-size:9px;color:#7080a0;width:80px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.pbar-outer{flex:1;height:7px;background:#1a2050;border-radius:4px;overflow:hidden;}
-.pbar-inner{height:100%;border-radius:4px;}
-.pbar-val{font-size:9px;color:#fff;font-weight:700;width:36px;text-align:right;}
-
-.sev-row{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0;}
-.sev-chip{padding:4px 10px;border-radius:20px;font-size:9px;font-weight:700;}
-.sev-critical{background:#ff4d6d22;color:#ff4d6d;border:1px solid #ff4d6d55;}
-.sev-high{background:#ff7b2022;color:#ff7b20;border:1px solid #ff7b2055;}
-.sev-medium{background:#f5a62322;color:#f5a623;border:1px solid #f5a62355;}
-.sev-low{background:#29c6ff22;color:#29c6ff;border:1px solid #29c6ff55;}
-.sev-info{background:#9b59b622;color:#c39bd3;border:1px solid #9b59b655;}
-
-.insight{background:#04041e;border-left:3px solid #29c6ff;border-radius:0 6px 6px 0;padding:8px 12px;margin:8px 0;font-size:10px;color:#a0aac0;line-height:1.6;}
-.insight.warn{border-left-color:#f5a623;}
-.insight.danger{border-left-color:#ff4d6d;}
-.insight.ok{border-left-color:#22d48a;}
-
-.sec-divider{font-size:9px;font-weight:700;color:#29c6ff;text-transform:uppercase;letter-spacing:1px;margin:14px 0 8px;border-bottom:1px solid #1a2050;padding-bottom:4px;}
-
-.multa-hi{color:#ff4d6d;font-weight:700;}
-.multa-med{color:#f5a623;font-weight:600;}
-.multa-lo{color:#22d48a;}
-
-.filter-btn{padding:4px 12px;border-radius:20px;font-size:9px;cursor:pointer;font-family:'Montserrat',sans-serif;font-weight:600;transition:all .2s;}
-.filter-btn:hover{opacity:.8;}
-
+.bA{background:#22d48a22;color:#22d48a;border:1px solid #22d48a66;}
+.bB{background:#29c6ff22;color:#29c6ff;border:1px solid #29c6ff66;}
+.bC{background:#f5a62322;color:#f5a623;border:1px solid #f5a62366;}
+.bD{background:#ff7b2022;color:#ff7b20;border:1px solid #ff7b2066;}
+.bF{background:#ff4d6d22;color:#ff4d6d;border:1px solid #ff4d6d66;}
+.pb{display:flex;align-items:center;gap:8px;margin:4px 0;}
+.pbl{font-size:9px;color:#7080a0;width:80px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pbo{flex:1;height:7px;background:#1a2050;border-radius:4px;overflow:hidden;}
+.pbi{height:100%;border-radius:4px;}
+.pbv{font-size:9px;color:#fff;font-weight:700;width:36px;text-align:right;}
+.sr{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0;}
+.sc{padding:4px 10px;border-radius:20px;font-size:9px;font-weight:700;}
+.sc-crit{background:#ff4d6d22;color:#ff4d6d;border:1px solid #ff4d6d55;}
+.sc-high{background:#ff7b2022;color:#ff7b20;border:1px solid #ff7b2055;}
+.sc-med{background:#f5a62322;color:#f5a623;border:1px solid #f5a62355;}
+.sc-low{background:#29c6ff22;color:#29c6ff;border:1px solid #29c6ff55;}
+.sc-info{background:#9b59b622;color:#c39bd3;border:1px solid #9b59b655;}
+.ins{background:#04041e;border-left:3px solid #29c6ff;border-radius:0 6px 6px 0;padding:8px 12px;margin:8px 0;font-size:10px;color:#a0aac0;line-height:1.6;}
+.ins.warn{border-left-color:#f5a623;}
+.ins.danger{border-left-color:#ff4d6d;}
+.ins.ok{border-left-color:#22d48a;}
+.sdiv{font-size:9px;font-weight:700;color:#29c6ff;text-transform:uppercase;letter-spacing:1px;margin:14px 0 8px;border-bottom:1px solid #1a2050;padding-bottom:4px;}
+.mhi{color:#ff4d6d;font-weight:700;}
+.mme{color:#f5a623;font-weight:600;}
+.mlo{color:#22d48a;}
+.fbtn{padding:4px 12px;border-radius:20px;font-size:9px;cursor:pointer;font-family:'Montserrat',sans-serif;font-weight:600;transition:all .2s;}
+.fbtn:hover{opacity:.8;}
 .footer{background:#04041e;border-top:1px solid #1a2050;padding:10px 24px;font-size:9px;color:#404060;text-align:center;margin-top:4px;}
-
 @media(max-width:768px){
-  .grid-2,.grid-3,.grid-2-1{grid-template-columns:1fr;}
-  .top-bar{flex-direction:column;gap:6px;text-align:center;}
-  .top-bar-right{text-align:center;}
+  .g2,.g3,.g21{grid-template-columns:1fr;}
+  .top-bar{flex-direction:column;gap:6px;}
+  .tbr .sub{text-align:center;}
 }
 </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
 <div class="top-bar">
   <img src="https://cedia.edu.ec/wp-content/uploads/2023/01/CEDIA2023_b1-300x109.png" alt="CEDIA"/>
-  <div class="top-bar-right">
+  <div class="tbr">
     <div class="title">Panorama de Seguridad &middot; Ecosistema IES Ecuador</div>
-    <div class="subtitle">Periodo: Dic 2025 &ndash; Mar 2026 &nbsp;|&nbsp; 71 IES Consolidadas &nbsp;|&nbsp; Generado: 01 Abr 2026 &nbsp;|&nbsp; CEDIA SOC-CSIRT</div>
+    <div class="sub">Periodo: Dic 2025 &ndash; Mar 2026 &nbsp;|&nbsp; 71 IES &nbsp;|&nbsp; 01 Abr 2026 &nbsp;|&nbsp; CEDIA SOC-CSIRT</div>
   </div>
 </div>
 
-<!-- TABS -->
 <div class="tabs">
-  <div class="tab active" onclick="showPanel('p-overview')">&#x1F4CA; Resumen Ejecutivo</div>
-  <div class="tab" onclick="showPanel('p-ranking')">&#x1F3C5; Ranking &amp; Scores</div>
-  <div class="tab" onclick="showPanel('p-vulns')">&#x1F6E1;&#xFE0F; Vulnerabilidades</div>
-  <div class="tab" onclick="showPanel('p-madurez')">&#x1F4C8; Madurez Digital</div>
-  <div class="tab" onclick="showPanel('p-multas')">&#x26A0;&#xFE0F; Multas &amp; Riesgo</div>
-  <div class="tab" onclick="showPanel('p-mapa')">&#x1F5FA;&#xFE0F; Mapa Ecuador</div>
+  <div class="tab active" onclick="showPanel('p1')">Resumen Ejecutivo</div>
+  <div class="tab" onclick="showPanel('p2')">Ranking &amp; Scores</div>
+  <div class="tab" onclick="showPanel('p3')">Vulnerabilidades</div>
+  <div class="tab" onclick="showPanel('p4')">Madurez Digital</div>
+  <div class="tab" onclick="showPanel('p5')">Multas &amp; Riesgo</div>
+  <div class="tab" onclick="showPanel('p6')">Mapa Ecuador</div>
 </div>
 
-<!-- ═══════════════════════ PANEL 1 — RESUMEN ═══════════════════════ -->
-<div id="p-overview" class="panel active">
+<!-- ======= PANEL 1 ======= -->
+<div id="p1" class="panel active">
   <div class="kpi-row">
     <div class="kpi blue"><div class="kpi-val">71</div><div class="kpi-label">IES Consolidadas</div><div class="kpi-sub">GLPI + Nessus + SSC</div></div>
     <div class="kpi green"><div class="kpi-val">7</div><div class="kpi-label">IES Grado A</div><div class="kpi-sub">Score combinado &ge; 90</div></div>
-    <div class="kpi amber"><div class="kpi-val">25</div><div class="kpi-label">IES en Zona D&ndash;F</div><div class="kpi-sub">Score &lt; 70 combinado</div></div>
+    <div class="kpi amber"><div class="kpi-val">25</div><div class="kpi-label">IES en Zona D-F</div><div class="kpi-sub">Score &lt; 70 combinado</div></div>
     <div class="kpi red"><div class="kpi-val">9,425</div><div class="kpi-label">Issues Activas</div><div class="kpi-sub">100% sin resolver</div></div>
     <div class="kpi purple"><div class="kpi-val">55%</div><div class="kpi-label">Madurez Media</div><div class="kpi-sub">21 IES evaluadas GEANT</div></div>
-    <div class="kpi red"><div class="kpi-val">$47.4M</div><div class="kpi-label">Riesgo Multas Total</div><div class="kpi-sub">Proyecci&oacute;n acumulada</div></div>
+    <div class="kpi red"><div class="kpi-val">$47.4M</div><div class="kpi-label">Riesgo Multas Total</div><div class="kpi-sub">Proyeccion acumulada</div></div>
   </div>
-
-  <div class="grid-2">
+  <div class="g2">
     <div class="card">
-      <div class="card-title"><span>Security Scorecard</span> Distribuci&oacute;n de 64 IES</div>
-      <div class="chart-wrap"><canvas id="chartSscGrade"></canvas></div>
+      <div class="ct"><span>Security Scorecard</span> Distribucion 64 IES</div>
+      <div class="cw"><canvas id="c1"></canvas></div>
     </div>
     <div class="card">
-      <div class="card-title"><span>Nessus</span> Distribuci&oacute;n de 58 IES</div>
-      <div class="chart-wrap"><canvas id="chartNessusGrade"></canvas></div>
+      <div class="ct"><span>Nessus</span> Distribucion 58 IES</div>
+      <div class="cw"><canvas id="c2"></canvas></div>
     </div>
   </div>
-
-  <div class="grid-2" style="margin-top:12px;">
+  <div class="g2" style="margin-top:12px;">
     <div class="card">
-      <div class="card-title"><span>Issues</span> Severidad Global (9,425 activas)</div>
-      <div class="sev-row">
-        <span class="sev-chip sev-critical">Critical 578</span>
-        <span class="sev-chip sev-high">High 1,329</span>
-        <span class="sev-chip sev-medium">Medium 617</span>
-        <span class="sev-chip sev-low">Low 5,626</span>
-        <span class="sev-chip sev-info">Info 2,691</span>
+      <div class="ct"><span>Issues</span> Severidad Global (9,425 activas)</div>
+      <div class="sr">
+        <span class="sc sc-crit">Critical 578</span>
+        <span class="sc sc-high">High 1,329</span>
+        <span class="sc sc-med">Medium 617</span>
+        <span class="sc sc-low">Low 5,626</span>
+        <span class="sc sc-info">Info 2,691</span>
       </div>
-      <div class="chart-wrap-sm"><canvas id="chartSeveridad"></canvas></div>
+      <div class="cwsm"><canvas id="c3"></canvas></div>
     </div>
     <div class="card">
-      <div class="card-title"><span>Estado</span> Ciclo de Vida de Issues</div>
-      <div class="chart-wrap-sm"><canvas id="chartEstado"></canvas></div>
-      <div class="insight danger">&#x26A0;&#xFE0F; <strong>100%</strong> de las 9,425 issues permanecen <strong>activas</strong>. El proceso de remediaci&oacute;n institucional requiere intervenci&oacute;n urgente.</div>
+      <div class="ct"><span>Estado</span> Ciclo de Vida de Issues</div>
+      <div class="cwsm"><canvas id="c4"></canvas></div>
+      <div class="ins danger">100% de las 9,425 issues permanecen activas. El proceso de remediacion institucional requiere intervencion urgente.</div>
     </div>
   </div>
-
-  <div class="sec-divider">&#x1F511; Insights Ejecutivos</div>
-  <div class="grid-2">
+  <div class="sdiv">Insights Ejecutivos</div>
+  <div class="g2">
     <div>
-      <div class="insight ok">&#x2705; <strong>UTN</strong> lidera el ecosistema con score combinado 97.25 (A). Le siguen ACAC (97.0), ISTE (95.0) y PUCE-SA (94.0).</div>
-      <div class="insight warn">&#x1F4C9; <strong>27 de 58 IES (46.6%)</strong> evaluadas por Nessus obtienen calificaci&oacute;n D o F, exponiendo infraestructura interna cr&iacute;tica.</div>
-      <div class="insight danger">&#x1F534; <strong>IES</strong> registra score 0.0 en Nessus. <strong>UESFN</strong> obtiene 22 puntos. Requieren intervenci&oacute;n inmediata.</div>
+      <div class="ins ok">UTN lidera el ecosistema con score combinado 97.25 (A). Le siguen ACAC (97.0), ISTE (95.0) y PUCE-SA (94.0).</div>
+      <div class="ins warn">27 de 58 IES (46.6%) evaluadas por Nessus obtienen calificacion D o F, exponiendo infraestructura interna critica.</div>
+      <div class="ins danger">IES registra score 0.0 en Nessus. UESFN obtiene 22 puntos. Requieren intervencion inmediata.</div>
     </div>
     <div>
-      <div class="insight warn">&#x26A0;&#xFE0F; <strong>584 credenciales comprometidas</strong> detectadas en el ecosistema. Riesgo elevado de acceso no autorizado y movimiento lateral.</div>
-      <div class="insight danger">&#x1F4B8; <strong>UCACUE</strong> acumula riesgo financiero de $17.3M en multas proyectadas con nivel de madurez solo del 44%.</div>
-      <div class="insight ok">&#x1F4CA; La madurez media del ecosistema es <strong>55%</strong>. Solo 6 IES superan el percentil 75 (l&iacute;deres). 5 IES est&aacute;n en zona cr&iacute;tica (&lt;P25).</div>
+      <div class="ins warn">584 credenciales comprometidas detectadas en el ecosistema. Riesgo elevado de acceso no autorizado y movimiento lateral.</div>
+      <div class="ins danger">UCACUE acumula riesgo financiero de $17.3M en multas proyectadas con nivel de madurez solo del 44%.</div>
+      <div class="ins ok">La madurez media del ecosistema es 55%. Solo 6 IES superan el percentil 75. 5 IES estan en zona critica (&lt;P25).</div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════ PANEL 2 — RANKING ═══════════════════════ -->
-<div id="p-ranking" class="panel">
-  <div class="grid-2-1">
+<!-- ======= PANEL 2 ======= -->
+<div id="p2" class="panel">
+  <div class="g21">
     <div>
-      <div class="sec-divider">&#x1F3C6; Top 10 &mdash; Mejor Posicionadas</div>
-      <div class="card"><div id="top10bars"></div></div>
-      <div class="sec-divider" style="margin-top:14px;">&#x26A0;&#xFE0F; Bottom 10 &mdash; Mayor Riesgo</div>
-      <div class="card"><div id="bot10bars"></div></div>
+      <div class="sdiv">Top 10 - Mejor Posicionadas</div>
+      <div class="card"><div id="tb10"></div></div>
+      <div class="sdiv" style="margin-top:14px;">Bottom 10 - Mayor Riesgo</div>
+      <div class="card"><div id="bb10"></div></div>
     </div>
     <div>
-      <div class="sec-divider">&#x1F4CB; Ranking Completo (71 IES)</div>
+      <div class="sdiv">Ranking Completo (71 IES)</div>
       <div class="card">
-        <div class="tbl-wrap" style="max-height:520px;">
+        <div class="tw" style="max-height:520px;">
           <table class="tbl">
             <thead><tr><th>#</th><th>IES</th><th>Score</th><th>Grado</th><th>SSC</th><th>Nessus</th></tr></thead>
-            <tbody id="rankingBody"></tbody>
+            <tbody id="rBody"></tbody>
           </table>
         </div>
       </div>
@@ -207,520 +182,389 @@ body{font-family:'Montserrat',sans-serif;background:#020029;color:#e2e3d5;min-he
   </div>
 </div>
 
-<!-- ═══════════════════════ PANEL 3 — VULNS ═══════════════════════ -->
-<div id="p-vulns" class="panel">
+<!-- ======= PANEL 3 ======= -->
+<div id="p3" class="panel">
   <div class="kpi-row">
-    <div class="kpi red"><div class="kpi-val">578</div><div class="kpi-label">Issues Cr&iacute;ticas</div></div>
-    <div class="kpi amber"><div class="kpi-val">1,329</div><div class="kpi-label">Issues Altas</div><div class="kpi-sub">High total</div></div>
+    <div class="kpi red"><div class="kpi-val">578</div><div class="kpi-label">Issues Criticas</div></div>
+    <div class="kpi amber"><div class="kpi-val">1,329</div><div class="kpi-label">Issues Altas</div></div>
     <div class="kpi blue"><div class="kpi-val">584</div><div class="kpi-label">Credenciales Comp.</div></div>
     <div class="kpi amber"><div class="kpi-val">1,263</div><div class="kpi-label">Patching Pendiente</div><div class="kpi-sub">Crit+High+Med</div></div>
     <div class="kpi purple"><div class="kpi-val">312</div><div class="kpi-label">Cert. Autofirmados</div></div>
     <div class="kpi blue"><div class="kpi-val">211</div><div class="kpi-label">Sin Policy CSP</div></div>
   </div>
-
-  <div class="grid-2">
+  <div class="g2">
     <div class="card">
-      <div class="card-title"><span>Top 15</span> Issues M&aacute;s Frecuentes</div>
-      <div class="chart-wrap-lg"><canvas id="chartTopIssues"></canvas></div>
+      <div class="ct"><span>Top 15</span> Issues Mas Frecuentes</div>
+      <div class="cwlg"><canvas id="c5"></canvas></div>
     </div>
     <div class="card">
-      <div class="card-title"><span>Categor&iacute;as</span> Agrupadas por Tipo</div>
-      <div style="margin-top:6px;">
-        <div class="sec-divider" style="margin-top:4px;">Vulnerabilidades de Servicio</div>
-        <div class="pbar-wrap"><div class="pbar-label">Critical</div><div class="pbar-outer"><div class="pbar-inner" style="width:59%;background:#ff4d6d;"></div></div><div class="pbar-val" style="color:#ff4d6d;">578</div></div>
-        <div class="pbar-wrap"><div class="pbar-label">High</div><div class="pbar-outer"><div class="pbar-inner" style="width:86%;background:#ff7b20;"></div></div><div class="pbar-val" style="color:#ff7b20;">838</div></div>
-        <div class="pbar-wrap"><div class="pbar-label">Medium</div><div class="pbar-outer"><div class="pbar-inner" style="width:100%;background:#f5a623;"></div></div><div class="pbar-val" style="color:#f5a623;">976</div></div>
-        <div class="sec-divider">Parches Pendientes</div>
-        <div class="pbar-wrap"><div class="pbar-label">Critical</div><div class="pbar-outer"><div class="pbar-inner" style="width:36%;background:#ff4d6d;"></div></div><div class="pbar-val" style="color:#ff4d6d;">199</div></div>
-        <div class="pbar-wrap"><div class="pbar-label">High</div><div class="pbar-outer"><div class="pbar-inner" style="width:56%;background:#ff7b20;"></div></div><div class="pbar-val" style="color:#ff7b20;">544</div></div>
-        <div class="pbar-wrap"><div class="pbar-label">Medium</div><div class="pbar-outer"><div class="pbar-inner" style="width:53%;background:#f5a623;"></div></div><div class="pbar-val" style="color:#f5a623;">520</div></div>
-        <div class="sec-divider">Identidad &amp; Credenciales</div>
-        <div class="pbar-wrap"><div class="pbar-label">Comprometidas</div><div class="pbar-outer"><div class="pbar-inner" style="width:100%;background:#9b59b6;"></div></div><div class="pbar-val" style="color:#c39bd3;">584</div></div>
-        <div class="pbar-wrap"><div class="pbar-label">Hist&oacute;ricas</div><div class="pbar-outer"><div class="pbar-inner" style="width:29%;background:#8e44ad;"></div></div><div class="pbar-val" style="color:#c39bd3;">169</div></div>
-        <div class="sec-divider">Configuraci&oacute;n TLS / HTTP</div>
-        <div class="pbar-wrap"><div class="pbar-label">Self-Signed</div><div class="pbar-outer"><div class="pbar-inner" style="width:53%;background:#29c6ff;"></div></div><div class="pbar-val">312</div></div>
-        <div class="pbar-wrap"><div class="pbar-label">No Revocation</div><div class="pbar-outer"><div class="pbar-inner" style="width:42%;background:#29c6ff88;"></div></div><div class="pbar-val">248</div></div>
-        <div class="pbar-wrap"><div class="pbar-label">HSTS incorrecto</div><div class="pbar-outer"><div class="pbar-inner" style="width:21%;background:#29c6ff55;"></div></div><div class="pbar-val">121</div></div>
-        <div class="pbar-wrap"><div class="pbar-label">CSP sin pol&iacute;tica</div><div class="pbar-outer"><div class="pbar-inner" style="width:36%;background:#29c6ff44;"></div></div><div class="pbar-val">211</div></div>
-      </div>
+      <div class="ct"><span>Categorias</span> Agrupadas por Tipo</div>
+      <div class="sdiv" style="margin-top:4px;">Vulnerabilidades de Servicio</div>
+      <div class="pb"><div class="pbl">Critical</div><div class="pbo"><div class="pbi" style="width:59%;background:#ff4d6d;"></div></div><div class="pbv" style="color:#ff4d6d;">578</div></div>
+      <div class="pb"><div class="pbl">High</div><div class="pbo"><div class="pbi" style="width:86%;background:#ff7b20;"></div></div><div class="pbv" style="color:#ff7b20;">838</div></div>
+      <div class="pb"><div class="pbl">Medium</div><div class="pbo"><div class="pbi" style="width:100%;background:#f5a623;"></div></div><div class="pbv" style="color:#f5a623;">976</div></div>
+      <div class="sdiv">Parches Pendientes</div>
+      <div class="pb"><div class="pbl">Critical</div><div class="pbo"><div class="pbi" style="width:36%;background:#ff4d6d;"></div></div><div class="pbv" style="color:#ff4d6d;">199</div></div>
+      <div class="pb"><div class="pbl">High</div><div class="pbo"><div class="pbi" style="width:56%;background:#ff7b20;"></div></div><div class="pbv" style="color:#ff7b20;">544</div></div>
+      <div class="pb"><div class="pbl">Medium</div><div class="pbo"><div class="pbi" style="width:53%;background:#f5a623;"></div></div><div class="pbv" style="color:#f5a623;">520</div></div>
+      <div class="sdiv">Identidad y Credenciales</div>
+      <div class="pb"><div class="pbl">Comprometidas</div><div class="pbo"><div class="pbi" style="width:100%;background:#9b59b6;"></div></div><div class="pbv" style="color:#c39bd3;">584</div></div>
+      <div class="pb"><div class="pbl">Historicas</div><div class="pbo"><div class="pbi" style="width:29%;background:#8e44ad;"></div></div><div class="pbv" style="color:#c39bd3;">169</div></div>
+      <div class="sdiv">Configuracion TLS / HTTP</div>
+      <div class="pb"><div class="pbl">Self-Signed</div><div class="pbo"><div class="pbi" style="width:53%;background:#29c6ff;"></div></div><div class="pbv">312</div></div>
+      <div class="pb"><div class="pbl">No Revocation</div><div class="pbo"><div class="pbi" style="width:42%;background:#29c6ff88;"></div></div><div class="pbv">248</div></div>
+      <div class="pb"><div class="pbl">HSTS Incorrecto</div><div class="pbo"><div class="pbi" style="width:21%;background:#29c6ff55;"></div></div><div class="pbv">121</div></div>
+      <div class="pb"><div class="pbl">CSP sin politica</div><div class="pbo"><div class="pbi" style="width:36%;background:#29c6ff44;"></div></div><div class="pbv">211</div></div>
     </div>
   </div>
-  <div class="insight danger" style="margin-top:10px;">&#x1F534; <strong>Prioridad 1:</strong> Las 1,912 issues de vulnerabilidades de servicio (critical+high+medium) representan el vector de ataque m&aacute;s inmediato del ecosistema.</div>
-  <div class="insight warn">&#x1F511; <strong>Prioridad 2:</strong> 584 credenciales activas comprometidas + 169 hist&oacute;ricas. Riesgo de acceso persistente no autorizado en m&uacute;ltiples IES simult&aacute;neamente.</div>
-  <div class="insight warn">&#x1F527; <strong>Prioridad 3:</strong> 1,263 eventos de parches pendientes. El rezago en parchado representa la principal causa de exposici&oacute;n sostenida.</div>
+  <div class="ins danger" style="margin-top:10px;">Prioridad 1: Las 1,912 issues de vulnerabilidades de servicio (critical+high+medium) representan el vector de ataque mas inmediato del ecosistema.</div>
+  <div class="ins warn">Prioridad 2: 584 credenciales activas comprometidas + 169 historicas. Riesgo de acceso persistente no autorizado en multiples IES simultaneamente.</div>
+  <div class="ins warn">Prioridad 3: 1,263 eventos de parches pendientes. El rezago en parchado representa la principal causa de exposicion sostenida.</div>
 </div>
 
-<!-- ═══════════════════════ PANEL 4 — MADUREZ ═══════════════════════ -->
-<div id="p-madurez" class="panel">
+<!-- ======= PANEL 4 ======= -->
+<div id="p4" class="panel">
   <div class="kpi-row">
     <div class="kpi blue"><div class="kpi-val">21</div><div class="kpi-label">IES Evaluadas</div><div class="kpi-sub">Modelo GEANT</div></div>
     <div class="kpi amber"><div class="kpi-val">55%</div><div class="kpi-label">Madurez Media</div><div class="kpi-sub">Mediana: 56%</div></div>
-    <div class="kpi green"><div class="kpi-val">87%</div><div class="kpi-label">L&iacute;der &mdash; ITSCO</div><div class="kpi-sub">Mejor posicionada</div></div>
-    <div class="kpi red"><div class="kpi-val">19%</div><div class="kpi-label">M&iacute;nima &mdash; SUDAMER.</div><div class="kpi-sub">Zona cr&iacute;tica</div></div>
-    <div class="kpi purple"><div class="kpi-val">6</div><div class="kpi-label">L&iacute;deres &ge;P75</div><div class="kpi-sub">ITSCO,ESPOL,UNL&hellip;</div></div>
-    <div class="kpi red"><div class="kpi-val">5</div><div class="kpi-label">Zona Cr&iacute;tica &lt;P25</div><div class="kpi-sub">USGP,UINPIAW,UPEC&hellip;</div></div>
+    <div class="kpi green"><div class="kpi-val">87%</div><div class="kpi-label">Lider - ITSCO</div><div class="kpi-sub">Mejor posicionada</div></div>
+    <div class="kpi red"><div class="kpi-val">19%</div><div class="kpi-label">Minima - SUDAMER.</div><div class="kpi-sub">Zona critica</div></div>
+    <div class="kpi purple"><div class="kpi-val">6</div><div class="kpi-label">Lideres P75+</div><div class="kpi-sub">ITSCO,ESPOL,UNL...</div></div>
+    <div class="kpi red"><div class="kpi-val">5</div><div class="kpi-label">Zona Critica P25-</div><div class="kpi-sub">USGP,UINPIAW,UPEC...</div></div>
   </div>
-
-  <div class="grid-2">
+  <div class="g2">
     <div class="card">
-      <div class="card-title"><span>Madurez</span> por IES (Descendente)</div>
-      <div class="chart-wrap-lg"><canvas id="chartMadurez"></canvas></div>
+      <div class="ct"><span>Madurez</span> por IES (Descendente)</div>
+      <div class="cwlg"><canvas id="c6"></canvas></div>
     </div>
     <div class="card">
-      <div class="card-title"><span>Distribuci&oacute;n</span> por Cuartiles</div>
-      <div class="chart-wrap-sm"><canvas id="chartCuartiles"></canvas></div>
+      <div class="ct"><span>Distribucion</span> por Cuartiles</div>
+      <div class="cwsm"><canvas id="c7"></canvas></div>
       <div style="margin-top:8px;">
-        <div class="pbar-wrap"><div class="pbar-label" style="width:110px;">L&iacute;deres &ge;73%</div><div class="pbar-outer"><div class="pbar-inner" style="width:29%;background:#22d48a;"></div></div><div class="pbar-val" style="color:#22d48a;">6 IES</div></div>
-        <div class="pbar-wrap"><div class="pbar-label" style="width:110px;">En Desarrollo</div><div class="pbar-outer"><div class="pbar-inner" style="width:48%;background:#29c6ff;"></div></div><div class="pbar-val">10 IES</div></div>
-        <div class="pbar-wrap"><div class="pbar-label" style="width:110px;">Zona Cr&iacute;tica &lt;40%</div><div class="pbar-outer"><div class="pbar-inner" style="width:24%;background:#ff4d6d;"></div></div><div class="pbar-val" style="color:#ff4d6d;">5 IES</div></div>
+        <div class="pb"><div class="pbl" style="width:110px;">Lideres (73%+)</div><div class="pbo"><div class="pbi" style="width:29%;background:#22d48a;"></div></div><div class="pbv" style="color:#22d48a;">6 IES</div></div>
+        <div class="pb"><div class="pbl" style="width:110px;">En Desarrollo</div><div class="pbo"><div class="pbi" style="width:48%;background:#29c6ff;"></div></div><div class="pbv">10 IES</div></div>
+        <div class="pb"><div class="pbl" style="width:110px;">Zona Critica (40%-)</div><div class="pbo"><div class="pbi" style="width:24%;background:#ff4d6d;"></div></div><div class="pbv" style="color:#ff4d6d;">5 IES</div></div>
       </div>
-      <div class="insight warn" style="margin-top:8px;">&#x26A0;&#xFE0F; Rango Intercuart&iacute;lico de <strong>34 puntos</strong> refleja alta heterogeneidad. El ecosistema no converge hacia un nivel com&uacute;n de madurez.</div>
+      <div class="ins warn" style="margin-top:8px;">Rango Intercuartilico de 34 puntos refleja alta heterogeneidad. El ecosistema no converge hacia un nivel comun de madurez.</div>
     </div>
   </div>
-
-  <div class="grid-3" style="margin-top:12px;">
+  <div class="g3" style="margin-top:12px;">
     <div class="card">
-      <div class="card-title">&#x1F3C6; L&iacute;deres</div>
-      <div class="pbar-wrap"><div class="pbar-label">ITSCO</div><div class="pbar-outer"><div class="pbar-inner" style="width:87%;background:#22d48a;"></div></div><div class="pbar-val" style="color:#22d48a;">87%</div></div>
-      <div class="pbar-wrap"><div class="pbar-label">ESPOL</div><div class="pbar-outer"><div class="pbar-inner" style="width:83%;background:#22d48a;"></div></div><div class="pbar-val" style="color:#22d48a;">83%</div></div>
-      <div class="pbar-wrap"><div class="pbar-label">UNL</div><div class="pbar-outer"><div class="pbar-inner" style="width:81%;background:#22d48a;"></div></div><div class="pbar-val" style="color:#22d48a;">81%</div></div>
-      <div class="pbar-wrap"><div class="pbar-label">UTPL</div><div class="pbar-outer"><div class="pbar-inner" style="width:81%;background:#22d48a;"></div></div><div class="pbar-val" style="color:#22d48a;">81%</div></div>
-      <div class="pbar-wrap"><div class="pbar-label">IKIAM</div><div class="pbar-outer"><div class="pbar-inner" style="width:77%;background:#22d48a;"></div></div><div class="pbar-val" style="color:#22d48a;">77%</div></div>
-      <div class="pbar-wrap"><div class="pbar-label">UCUENCA</div><div class="pbar-outer"><div class="pbar-inner" style="width:73%;background:#22d48a;"></div></div><div class="pbar-val" style="color:#22d48a;">73%</div></div>
+      <div class="ct">Lideres</div>
+      <div class="pb"><div class="pbl">ITSCO</div><div class="pbo"><div class="pbi" style="width:87%;background:#22d48a;"></div></div><div class="pbv" style="color:#22d48a;">87%</div></div>
+      <div class="pb"><div class="pbl">ESPOL</div><div class="pbo"><div class="pbi" style="width:83%;background:#22d48a;"></div></div><div class="pbv" style="color:#22d48a;">83%</div></div>
+      <div class="pb"><div class="pbl">UNL</div><div class="pbo"><div class="pbi" style="width:81%;background:#22d48a;"></div></div><div class="pbv" style="color:#22d48a;">81%</div></div>
+      <div class="pb"><div class="pbl">UTPL</div><div class="pbo"><div class="pbi" style="width:81%;background:#22d48a;"></div></div><div class="pbv" style="color:#22d48a;">81%</div></div>
+      <div class="pb"><div class="pbl">IKIAM</div><div class="pbo"><div class="pbi" style="width:77%;background:#22d48a;"></div></div><div class="pbv" style="color:#22d48a;">77%</div></div>
+      <div class="pb"><div class="pbl">UCUENCA</div><div class="pbo"><div class="pbi" style="width:73%;background:#22d48a;"></div></div><div class="pbv" style="color:#22d48a;">73%</div></div>
     </div>
     <div class="card">
-      <div class="card-title">&#x1F504; En Desarrollo</div>
-      <div class="pbar-wrap"><div class="pbar-label">ESPE</div><div class="pbar-outer"><div class="pbar-inner" style="width:73%;background:#29c6ff;"></div></div><div class="pbar-val">73%</div></div>
-      <div class="pbar-wrap"><div class="pbar-label">PUCE</div><div class="pbar-outer"><div class="pbar-inner" style="width:68%;background:#29c6ff;"></div></div><div class="pbar-val">68%</div></div>
-      <div class="pbar-wrap"><div class="pbar-label">UPS</div><div class="pbar-outer"><div class="pbar-inner" style="width:59%;background:#29c6ff;"></div></div><div class="pbar-val">59%</div></div>
-      <div class="pbar-wrap"><div class="pbar-label">MCUENCA</div><div class="pbar-outer"><div class="pbar-inner" style="width:56%;background:#29c6ff;"></div></div><div class="pbar-val">56%</div></div>
-      <div class="pbar-wrap"><div class="pbar-label">UNIANDES</div><div class="pbar-outer"><div class="pbar-inner" style="width:56%;background:#29c6ff;"></div></div><div class="pbar-val">56%</div></div>
-      <div class="pbar-wrap"><div class="pbar-label">UDA</div><div class="pbar-outer"><div class="pbar-inner" style="width:53%;background:#f5a623;"></div></div><div class="pbar-val" style="color:#f5a623;">53%</div></div>
-      <div class="pbar-wrap"><div class="pbar-label">ARMADA</div><div class="pbar-outer"><div class="pbar-inner" style="width:47%;background:#f5a623;"></div></div><div class="pbar-val" style="color:#f5a623;">47%</div></div>
-      <div class="pbar-wrap"><div class="pbar-label">UCACUE</div><div class="pbar-outer"><div class="pbar-inner" style="width:44%;background:#f5a623;"></div></div><div class="pbar-val" style="color:#f5a623;">44%</div></div>
-      <div class="pbar-wrap"><div class="pbar-label">ISTE</div><div class="pbar-outer"><div class="pbar-inner" style="width:43%;background:#f5a623;"></div></div><div class="pbar-val" style="color:#f5a623;">43%</div></div>
+      <div class="ct">En Desarrollo</div>
+      <div class="pb"><div class="pbl">ESPE</div><div class="pbo"><div class="pbi" style="width:73%;background:#29c6ff;"></div></div><div class="pbv">73%</div></div>
+      <div class="pb"><div class="pbl">PUCE</div><div class="pbo"><div class="pbi" style="width:68%;background:#29c6ff;"></div></div><div class="pbv">68%</div></div>
+      <div class="pb"><div class="pbl">UPS</div><div class="pbo"><div class="pbi" style="width:59%;background:#29c6ff;"></div></div><div class="pbv">59%</div></div>
+      <div class="pb"><div class="pbl">MCUENCA</div><div class="pbo"><div class="pbi" style="width:56%;background:#29c6ff;"></div></div><div class="pbv">56%</div></div>
+      <div class="pb"><div class="pbl">UNIANDES</div><div class="pbo"><div class="pbi" style="width:56%;background:#29c6ff;"></div></div><div class="pbv">56%</div></div>
+      <div class="pb"><div class="pbl">UDA</div><div class="pbo"><div class="pbi" style="width:53%;background:#f5a623;"></div></div><div class="pbv" style="color:#f5a623;">53%</div></div>
+      <div class="pb"><div class="pbl">ARMADA</div><div class="pbo"><div class="pbi" style="width:47%;background:#f5a623;"></div></div><div class="pbv" style="color:#f5a623;">47%</div></div>
+      <div class="pb"><div class="pbl">UCACUE</div><div class="pbo"><div class="pbi" style="width:44%;background:#f5a623;"></div></div><div class="pbv" style="color:#f5a623;">44%</div></div>
+      <div class="pb"><div class="pbl">ISTE</div><div class="pbo"><div class="pbi" style="width:43%;background:#f5a623;"></div></div><div class="pbv" style="color:#f5a623;">43%</div></div>
     </div>
     <div class="card">
-      <div class="card-title">&#x1F6A8; Zona Cr&iacute;tica</div>
-      <div class="pbar-wrap"><div class="pbar-label">UTELVT</div><div class="pbar-outer"><div class="pbar-inner" style="width:40%;background:#ff7b20;"></div></div><div class="pbar-val" style="color:#ff7b20;">40%</div></div>
-      <div class="pbar-wrap"><div class="pbar-label">USGP</div><div class="pbar-outer"><div class="pbar-inner" style="width:38%;background:#ff4d6d;"></div></div><div class="pbar-val" style="color:#ff4d6d;">38%</div></div>
-      <div class="pbar-wrap"><div class="pbar-label">UINPIAW</div><div class="pbar-outer"><div class="pbar-inner" style="width:32%;background:#ff4d6d;"></div></div><div class="pbar-val" style="color:#ff4d6d;">32%</div></div>
-      <div class="pbar-wrap"><div class="pbar-label">UPEC</div><div class="pbar-outer"><div class="pbar-inner" style="width:23%;background:#ff4d6d;"></div></div><div class="pbar-val" style="color:#ff4d6d;">23%</div></div>
-      <div class="pbar-wrap"><div class="pbar-label">ESPAM</div><div class="pbar-outer"><div class="pbar-inner" style="width:21%;background:#ff4d6d;"></div></div><div class="pbar-val" style="color:#ff4d6d;">21%</div></div>
-      <div class="pbar-wrap"><div class="pbar-label">SUDAMER.</div><div class="pbar-outer"><div class="pbar-inner" style="width:19%;background:#ff4d6d;"></div></div><div class="pbar-val" style="color:#ff4d6d;">19%</div></div>
+      <div class="ct">Zona Critica</div>
+      <div class="pb"><div class="pbl">UTELVT</div><div class="pbo"><div class="pbi" style="width:40%;background:#ff7b20;"></div></div><div class="pbv" style="color:#ff7b20;">40%</div></div>
+      <div class="pb"><div class="pbl">USGP</div><div class="pbo"><div class="pbi" style="width:38%;background:#ff4d6d;"></div></div><div class="pbv" style="color:#ff4d6d;">38%</div></div>
+      <div class="pb"><div class="pbl">UINPIAW</div><div class="pbo"><div class="pbi" style="width:32%;background:#ff4d6d;"></div></div><div class="pbv" style="color:#ff4d6d;">32%</div></div>
+      <div class="pb"><div class="pbl">UPEC</div><div class="pbo"><div class="pbi" style="width:23%;background:#ff4d6d;"></div></div><div class="pbv" style="color:#ff4d6d;">23%</div></div>
+      <div class="pb"><div class="pbl">ESPAM</div><div class="pbo"><div class="pbi" style="width:21%;background:#ff4d6d;"></div></div><div class="pbv" style="color:#ff4d6d;">21%</div></div>
+      <div class="pb"><div class="pbl">SUDAMER.</div><div class="pbo"><div class="pbi" style="width:19%;background:#ff4d6d;"></div></div><div class="pbv" style="color:#ff4d6d;">19%</div></div>
     </div>
   </div>
-  <div class="insight" style="margin-top:10px;">&#x1F4D0; <strong>Correlaci&oacute;n Pearson: -0.13</strong> (Inversa D&eacute;bil). A mayor madurez, tendencia de menor exposici&oacute;n a multas, aunque la relaci&oacute;n no es lineal. Factores adicionales (tama&ntilde;o, tipo, complejidad) inciden en la proyecci&oacute;n de riesgo.</div>
+  <div class="ins" style="margin-top:10px;">Correlacion Pearson: -0.13 (Inversa Debil). A mayor madurez, tendencia de menor exposicion a multas, aunque la relacion no es lineal. Factores adicionales (tamano, tipo, complejidad) inciden en la proyeccion de riesgo.</div>
 </div>
 
-<!-- ═══════════════════════ PANEL 5 — MULTAS ═══════════════════════ -->
-<div id="p-multas" class="panel">
+<!-- ======= PANEL 5 ======= -->
+<div id="p5" class="panel">
   <div class="kpi-row">
     <div class="kpi red"><div class="kpi-val">$47.4M</div><div class="kpi-label">Riesgo Total Ecosistema</div></div>
     <div class="kpi red"><div class="kpi-val">$2.35M</div><div class="kpi-label">Media por IES</div><div class="kpi-sub">Alta volatilidad 194%</div></div>
     <div class="kpi amber"><div class="kpi-val">$141K</div><div class="kpi-label">Mediana por IES</div><div class="kpi-sub">P50 real</div></div>
-    <div class="kpi red"><div class="kpi-val">$17.3M</div><div class="kpi-label">M&aacute;ximo &mdash; UCACUE</div><div class="kpi-sub">7.4x media del ecosistema</div></div>
+    <div class="kpi red"><div class="kpi-val">$17.3M</div><div class="kpi-label">Maximo - UCACUE</div><div class="kpi-sub">7.4x media del ecosistema</div></div>
     <div class="kpi amber"><div class="kpi-val">321</div><div class="kpi-label">Total Infracciones</div><div class="kpi-sub">Leves + Graves</div></div>
     <div class="kpi blue"><div class="kpi-val">6</div><div class="kpi-label">IES sobre P75</div><div class="kpi-sub">Mayor riesgo financiero</div></div>
   </div>
-
-  <div class="grid-2">
+  <div class="g2">
     <div class="card">
-      <div class="card-title"><span>Impacto</span> Financiero por IES ($)</div>
-      <div class="chart-wrap-lg"><canvas id="chartMultas"></canvas></div>
+      <div class="ct"><span>Impacto</span> Financiero por IES ($)</div>
+      <div class="cwlg"><canvas id="c8"></canvas></div>
     </div>
     <div class="card">
-      <div class="card-title"><span>Infracciones</span> Leves vs Graves</div>
-      <div class="chart-wrap-lg"><canvas id="chartInfracciones"></canvas></div>
+      <div class="ct"><span>Infracciones</span> Leves vs Graves</div>
+      <div class="cwlg"><canvas id="c9"></canvas></div>
     </div>
   </div>
-
-  <div class="sec-divider" style="margin-top:14px;">&#x1F4CB; Desglose Detallado &mdash; Infracciones y Costos</div>
+  <div class="sdiv" style="margin-top:14px;">Desglose Detallado - Infracciones y Costos</div>
   <div class="card">
-    <div class="tbl-wrap">
+    <div class="tw">
       <table class="tbl">
         <thead><tr><th>IES</th><th>Leves</th><th>Costo Leves</th><th>Graves</th><th>Costo Graves</th><th>Total Multa</th><th>vs Media</th><th>Madurez</th></tr></thead>
-        <tbody id="multaBody"></tbody>
+        <tbody id="mBody"></tbody>
       </table>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════ PANEL 6 — MAPA ═══════════════════════ -->
-<div id="p-mapa" class="panel">
-  <div class="grid-2-1" style="gap:12px;align-items:start;">
+<!-- ======= PANEL 6 ======= -->
+<div id="p6" class="panel">
+  <div class="g21" style="gap:12px;align-items:start;">
     <div>
-      <div class="card-title" style="margin-bottom:8px;font-size:10px;color:#29c6ff;font-weight:700;text-transform:uppercase;letter-spacing:.8px;"><span style="background:#29c6ff22;padding:2px 8px;border-radius:20px;">Mapa de Calor</span> Distribuci&oacute;n Territorial &mdash; Nivel de Seguridad IES</div>
-      <div style="margin-bottom:8px;display:flex;gap:6px;flex-wrap:wrap;" id="mapFilters">
-        <button class="filter-btn" onclick="filterMap('all')" style="border:1px solid #29c6ff;background:#29c6ff22;color:#29c6ff;">Todas</button>
-        <button class="filter-btn" onclick="filterMap('A')" style="border:1px solid #22d48a;background:#22d48a11;color:#22d48a;">Grado A</button>
-        <button class="filter-btn" onclick="filterMap('B')" style="border:1px solid #29c6ff;background:#29c6ff11;color:#29c6ff;">Grado B</button>
-        <button class="filter-btn" onclick="filterMap('C')" style="border:1px solid #f5a623;background:#f5a62311;color:#f5a623;">Grado C</button>
-        <button class="filter-btn" onclick="filterMap('D')" style="border:1px solid #ff7b20;background:#ff7b2011;color:#ff7b20;">Grado D</button>
-        <button class="filter-btn" onclick="filterMap('F')" style="border:1px solid #ff4d6d;background:#ff4d6d11;color:#ff4d6d;">Grado F</button>
+      <div class="ct" style="margin-bottom:8px;"><span>Mapa de Calor</span> Distribucion Territorial - Nivel de Seguridad IES</div>
+      <div style="margin-bottom:8px;display:flex;gap:6px;flex-wrap:wrap;">
+        <button class="fbtn" onclick="filterMap('all')" style="border:1px solid #29c6ff;background:#29c6ff22;color:#29c6ff;">Todas</button>
+        <button class="fbtn" onclick="filterMap('A')" style="border:1px solid #22d48a;background:#22d48a11;color:#22d48a;">Grado A</button>
+        <button class="fbtn" onclick="filterMap('B')" style="border:1px solid #29c6ff;background:#29c6ff11;color:#29c6ff;">Grado B</button>
+        <button class="fbtn" onclick="filterMap('C')" style="border:1px solid #f5a623;background:#f5a62311;color:#f5a623;">Grado C</button>
+        <button class="fbtn" onclick="filterMap('D')" style="border:1px solid #ff7b20;background:#ff7b2011;color:#ff7b20;">Grado D</button>
+        <button class="fbtn" onclick="filterMap('F')" style="border:1px solid #ff4d6d;background:#ff4d6d11;color:#ff4d6d;">Grado F</button>
       </div>
       <div id="map"></div>
     </div>
     <div>
-      <div class="sec-divider">&#x1F511; Lectura Territorial</div>
-      <div class="insight ok">&#x1F7E2; <strong>Quito / Sierra Norte:</strong> UTN (Ibarra), ESPE (Sangolqu&iacute;), UDLA y UTE destacan con scores altos. Zona con mejor nivel relativo de seguridad.</div>
-      <div class="insight ok">&#x1F7E2; <strong>Costa (Guayaquil):</strong> ESPOL y UG alcanzan buenos niveles combinados. Referentes de la regi&oacute;n litoral.</div>
-      <div class="insight warn">&#x1F7E1; <strong>Sierra Centro (Riobamba):</strong> ESPOCH y UNACH presentan calificaciones D&ndash;F. Zona con concentraci&oacute;n de riesgo medio-alto.</div>
-      <div class="insight danger">&#x1F534; <strong>Zonas perif&eacute;ricas:</strong> USGP (Portoviejo), ESPAM (Calceta), UTELVT (Esmeraldas) y UPEC (Tulc&aacute;n) concentran los niveles m&aacute;s cr&iacute;ticos del ecosistema.</div>
-      <div class="insight warn">&#x26A0;&#xFE0F; <strong>Cuenca / Sur:</strong> UCACUE y UTMACH en zona D&ndash;F combinado. Contraste con UCUENCA y UNL que mantienen niveles C&ndash;B.</div>
-      <div class="insight">&#x1F4CC; La ubicaci&oacute;n es referencial por ciudad sede institucional. Visualizaci&oacute;n de calor basada en scores combinados Nessus + Security Scorecard.</div>
+      <div class="sdiv">Lectura Territorial</div>
+      <div class="ins ok">Quito / Sierra Norte: UTN (Ibarra), ESPE (Sangolqui), UDLA y UTE destacan con scores altos. Zona con mejor nivel relativo de seguridad.</div>
+      <div class="ins ok">Costa (Guayaquil): ESPOL y UG alcanzan buenos niveles combinados. Referentes de la region litoral.</div>
+      <div class="ins warn">Sierra Centro (Riobamba): ESPOCH y UNACH presentan calificaciones D-F. Zona con concentracion de riesgo medio-alto.</div>
+      <div class="ins danger">Zonas perifericas: USGP (Portoviejo), ESPAM (Calceta), UTELVT (Esmeraldas) y UPEC (Tulcan) concentran los niveles mas criticos del ecosistema.</div>
+      <div class="ins warn">Cuenca / Sur: UCACUE y UTMACH en zona D-F combinado. Contraste con UCUENCA y UNL que mantienen niveles C-B.</div>
+      <div class="ins">La ubicacion es referencial por ciudad sede institucional. Visualizacion de calor basada en scores combinados Nessus + Security Scorecard.</div>
       <div style="margin-top:14px;">
-        <div class="sec-divider">Leyenda</div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;">
-          <span style="font-size:9px;display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:50%;background:#22d48a;display:inline-block;"></span> Grado A (&ge;90)</span>
-          <span style="font-size:9px;display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:50%;background:#29c6ff;display:inline-block;"></span> Grado B (80&ndash;89)</span>
-          <span style="font-size:9px;display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:50%;background:#f5a623;display:inline-block;"></span> Grado C (70&ndash;79)</span>
-          <span style="font-size:9px;display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:50%;background:#ff7b20;display:inline-block;"></span> Grado D (60&ndash;69)</span>
-          <span style="font-size:9px;display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:50%;background:#ff4d6d;display:inline-block;"></span> Grado F (&lt;60)</span>
+        <div class="sdiv">Leyenda</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;font-size:9px;">
+          <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:50%;background:#22d48a;display:inline-block;"></span>Grado A (90+)</span>
+          <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:50%;background:#29c6ff;display:inline-block;"></span>Grado B (80-89)</span>
+          <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:50%;background:#f5a623;display:inline-block;"></span>Grado C (70-79)</span>
+          <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:50%;background:#ff7b20;display:inline-block;"></span>Grado D (60-69)</span>
+          <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:50%;background:#ff4d6d;display:inline-block;"></span>Grado F (-60)</span>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="footer">
-  CEDIA &middot; Centro de Operaciones de Seguridad SOC-CSIRT &middot; Ecosistema IES Ecuador &middot; Periodo: 2025-12 ~ 2026-03 &middot; Fuentes: GLPI, Nessus, Security Scorecard, Modelo de Madurez GEANT &middot; Confidencial &mdash; Uso interno
-</div>
+<div class="footer">CEDIA &middot; Centro de Operaciones de Seguridad SOC-CSIRT &middot; Ecosistema IES Ecuador &middot; Periodo: 2025-12 ~ 2026-03 &middot; Fuentes: GLPI, Nessus, Security Scorecard, Modelo de Madurez GEANT &middot; Confidencial - Uso interno</div>
 
 <script>
-// ── DATA ──────────────────────────────────────────────────────────────────
-const ranking = [
-  {i:"UTN",s:97.25,g:"A",ssc:95,nss:99.5},{i:"ACAC",s:97.0,g:"A",ssc:97,nss:null},
-  {i:"ISTE",s:95.0,g:"A",ssc:95,nss:null},{i:"PUCE-SA",s:94.0,g:"A",ssc:null,nss:94},
-  {i:"IKIAM",s:93.75,g:"A",ssc:94,nss:93.5},{i:"UDLA",s:91.0,g:"A",ssc:89,nss:93},
-  {i:"UTM",s:90.0,g:"A",ssc:90,nss:null},{i:"USFQ",s:89.5,g:"B",ssc:84,nss:95},
-  {i:"ESPE",s:89.25,g:"B",ssc:92,nss:86.5},{i:"UTE",s:88.5,g:"B",ssc:80,nss:97},
-  {i:"CEDIA",s:87.0,g:"B",ssc:87,nss:null},{i:"ITECSUR",s:87.0,g:"B",ssc:87,nss:null},
-  {i:"TECSU",s:87.0,g:"B",ssc:95,nss:79},{i:"UNL",s:87.0,g:"B",ssc:84,nss:90},
-  {i:"ESPOL",s:85.25,g:"B",ssc:73,nss:97.5},{i:"UG",s:84.0,g:"B",ssc:77,nss:91},
-  {i:"UPS",s:83.5,g:"B",ssc:87,nss:80},{i:"IAEN",s:83.0,g:"B",ssc:100,nss:66},
-  {i:"WISSEN",s:82.5,g:"B",ssc:92,nss:73},{i:"CES",s:81.0,g:"B",ssc:81,nss:null},
-  {i:"UISRAEL",s:80.5,g:"B",ssc:61,nss:100},{i:"UOTAVALO",s:80.5,g:"B",ssc:85,nss:76},
-  {i:"UEA",s:80.25,g:"B",ssc:91,nss:69.5},{i:"INOCAR",s:78.0,g:"C",ssc:78,nss:null},
-  {i:"PUCE-SM",s:78.0,g:"C",ssc:null,nss:78},{i:"UEB",s:78.0,g:"C",ssc:78,nss:null},
-  {i:"UCUENCA",s:77.5,g:"C",ssc:78,nss:77},{i:"CACES",s:75.5,g:"C",ssc:96,nss:55},
-  {i:"UCE",s:75.0,g:"C",ssc:86,nss:64},{i:"UNAE",s:74.5,g:"C",ssc:89,nss:60},
-  {i:"UNIBE",s:74.0,g:"C",ssc:74,nss:null},{i:"UTC",s:74.0,g:"C",ssc:74,nss:null},
-  {i:"YACHAY",s:74.0,g:"C",ssc:74,nss:null},{i:"UARTES",s:72.0,g:"C",ssc:68,nss:76},
-  {i:"UIDE",s:72.0,g:"C",ssc:72,nss:null},{i:"SUDAMER.",s:71.0,g:"C",ssc:71,nss:null},
-  {i:"PUCE-SE",s:70.0,g:"C",ssc:null,nss:70},{i:"ULEAM",s:70.0,g:"C",ssc:70,nss:null},
-  {i:"PUCE",s:69.75,g:"D",ssc:49,nss:90.5},{i:"ITCA",s:69.0,g:"D",ssc:69,nss:null},
-  {i:"UCSG",s:69.0,g:"D",ssc:68,nss:70},{i:"UINPIAW",s:67.0,g:"D",ssc:58,nss:76},
-  {i:"UTMACH",s:67.0,g:"D",ssc:81,nss:53},{i:"UTA",s:66.25,g:"D",ssc:82,nss:50.5},
-  {i:"ITSCO",s:66.0,g:"D",ssc:85,nss:47},{i:"PASOS",s:64.0,g:"D",ssc:64,nss:null},
-  {i:"UTI",s:64.0,g:"D",ssc:64,nss:null},{i:"ESPAM",s:63.25,g:"D",ssc:88,nss:38.5},
-  {i:"EPN",s:62.0,g:"D",ssc:62,nss:null},{i:"UTPL",s:62.0,g:"D",ssc:62,nss:null},
-  {i:"PUCE-SI",s:61.0,g:"D",ssc:null,nss:61},{i:"UDA",s:61.0,g:"D",ssc:61,nss:null},
-  {i:"UTELVT",s:60.5,g:"D",ssc:64,nss:57},{i:"PUCE-SD",s:60.0,g:"D",ssc:null,nss:60},
-  {i:"ITB",s:59.5,g:"F",ssc:44,nss:75},{i:"ISTP",s:58.0,g:"F",ssc:58,nss:null},
-  {i:"ESPOCH",s:57.5,g:"F",ssc:71,nss:44},{i:"UNACH",s:56.75,g:"F",ssc:63,nss:50.5},
-  {i:"USGP",s:56.75,g:"F",ssc:77,nss:36.5},{i:"UPEC",s:56.0,g:"F",ssc:59,nss:53},
-  {i:"ISTER",s:55.0,g:"F",ssc:55,nss:null},{i:"TES",s:55.0,g:"F",ssc:55,nss:null},
-  {i:"UNIANDES",s:54.0,g:"F",ssc:54,nss:null},{i:"UTB",s:52.75,g:"F",ssc:62,nss:43.5},
-  {i:"UCACUE",s:50.75,g:"F",ssc:49,nss:52.5},{i:"ITSVN",s:48.0,g:"F",ssc:48,nss:null},
-  {i:"ARMADA",s:47.0,g:"F",ssc:47,nss:null},{i:"UBE",s:46.0,g:"F",ssc:46,nss:null},
-  {i:"UTEQ",s:45.5,g:"F",ssc:60,nss:31},{i:"UESFN",s:22.0,g:"F",ssc:null,nss:22},
-  {i:"IES",s:0.0,g:"F",ssc:null,nss:0}
-];
+(function(){
+  // ---- DATA ----
+  var ranking=[
+    {i:"UTN",s:97.25,g:"A",ssc:95,nss:99.5},{i:"ACAC",s:97.0,g:"A",ssc:97,nss:null},
+    {i:"ISTE",s:95.0,g:"A",ssc:95,nss:null},{i:"PUCE-SA",s:94.0,g:"A",ssc:null,nss:94},
+    {i:"IKIAM",s:93.75,g:"A",ssc:94,nss:93.5},{i:"UDLA",s:91.0,g:"A",ssc:89,nss:93},
+    {i:"UTM",s:90.0,g:"A",ssc:90,nss:null},{i:"USFQ",s:89.5,g:"B",ssc:84,nss:95},
+    {i:"ESPE",s:89.25,g:"B",ssc:92,nss:86.5},{i:"UTE",s:88.5,g:"B",ssc:80,nss:97},
+    {i:"CEDIA",s:87.0,g:"B",ssc:87,nss:null},{i:"ITECSUR",s:87.0,g:"B",ssc:87,nss:null},
+    {i:"TECSU",s:87.0,g:"B",ssc:95,nss:79},{i:"UNL",s:87.0,g:"B",ssc:84,nss:90},
+    {i:"ESPOL",s:85.25,g:"B",ssc:73,nss:97.5},{i:"UG",s:84.0,g:"B",ssc:77,nss:91},
+    {i:"UPS",s:83.5,g:"B",ssc:87,nss:80},{i:"IAEN",s:83.0,g:"B",ssc:100,nss:66},
+    {i:"WISSEN",s:82.5,g:"B",ssc:92,nss:73},{i:"CES",s:81.0,g:"B",ssc:81,nss:null},
+    {i:"UISRAEL",s:80.5,g:"B",ssc:61,nss:100},{i:"UOTAVALO",s:80.5,g:"B",ssc:85,nss:76},
+    {i:"UEA",s:80.25,g:"B",ssc:91,nss:69.5},{i:"INOCAR",s:78.0,g:"C",ssc:78,nss:null},
+    {i:"PUCE-SM",s:78.0,g:"C",ssc:null,nss:78},{i:"UEB",s:78.0,g:"C",ssc:78,nss:null},
+    {i:"UCUENCA",s:77.5,g:"C",ssc:78,nss:77},{i:"CACES",s:75.5,g:"C",ssc:96,nss:55},
+    {i:"UCE",s:75.0,g:"C",ssc:86,nss:64},{i:"UNAE",s:74.5,g:"C",ssc:89,nss:60},
+    {i:"UNIBE",s:74.0,g:"C",ssc:74,nss:null},{i:"UTC",s:74.0,g:"C",ssc:74,nss:null},
+    {i:"YACHAY",s:74.0,g:"C",ssc:74,nss:null},{i:"UARTES",s:72.0,g:"C",ssc:68,nss:76},
+    {i:"UIDE",s:72.0,g:"C",ssc:72,nss:null},{i:"SUDAMER.",s:71.0,g:"C",ssc:71,nss:null},
+    {i:"PUCE-SE",s:70.0,g:"C",ssc:null,nss:70},{i:"ULEAM",s:70.0,g:"C",ssc:70,nss:null},
+    {i:"PUCE",s:69.75,g:"D",ssc:49,nss:90.5},{i:"ITCA",s:69.0,g:"D",ssc:69,nss:null},
+    {i:"UCSG",s:69.0,g:"D",ssc:68,nss:70},{i:"UINPIAW",s:67.0,g:"D",ssc:58,nss:76},
+    {i:"UTMACH",s:67.0,g:"D",ssc:81,nss:53},{i:"UTA",s:66.25,g:"D",ssc:82,nss:50.5},
+    {i:"ITSCO",s:66.0,g:"D",ssc:85,nss:47},{i:"PASOS",s:64.0,g:"D",ssc:64,nss:null},
+    {i:"UTI",s:64.0,g:"D",ssc:64,nss:null},{i:"ESPAM",s:63.25,g:"D",ssc:88,nss:38.5},
+    {i:"EPN",s:62.0,g:"D",ssc:62,nss:null},{i:"UTPL",s:62.0,g:"D",ssc:62,nss:null},
+    {i:"PUCE-SI",s:61.0,g:"D",ssc:null,nss:61},{i:"UDA",s:61.0,g:"D",ssc:61,nss:null},
+    {i:"UTELVT",s:60.5,g:"D",ssc:64,nss:57},{i:"PUCE-SD",s:60.0,g:"D",ssc:null,nss:60},
+    {i:"ITB",s:59.5,g:"F",ssc:44,nss:75},{i:"ISTP",s:58.0,g:"F",ssc:58,nss:null},
+    {i:"ESPOCH",s:57.5,g:"F",ssc:71,nss:44},{i:"UNACH",s:56.75,g:"F",ssc:63,nss:50.5},
+    {i:"USGP",s:56.75,g:"F",ssc:77,nss:36.5},{i:"UPEC",s:56.0,g:"F",ssc:59,nss:53},
+    {i:"ISTER",s:55.0,g:"F",ssc:55,nss:null},{i:"TES",s:55.0,g:"F",ssc:55,nss:null},
+    {i:"UNIANDES",s:54.0,g:"F",ssc:54,nss:null},{i:"UTB",s:52.75,g:"F",ssc:62,nss:43.5},
+    {i:"UCACUE",s:50.75,g:"F",ssc:49,nss:52.5},{i:"ITSVN",s:48.0,g:"F",ssc:48,nss:null},
+    {i:"ARMADA",s:47.0,g:"F",ssc:47,nss:null},{i:"UBE",s:46.0,g:"F",ssc:46,nss:null},
+    {i:"UTEQ",s:45.5,g:"F",ssc:60,nss:31},{i:"UESFN",s:22.0,g:"F",ssc:null,nss:22},
+    {i:"IES",s:0.0,g:"F",ssc:null,nss:0}
+  ];
 
-const multaData = [
-  {i:"UCACUE",l:15,cl:312245,g:19,cg:663520.62,t:17290566.64,m:44},
-  {i:"UDA",l:18,cl:118759.13,g:29,cg:252363.15,t:9456195.51,m:53},
-  {i:"UPS",l:12,cl:176927.07,g:16,cg:375970.03,t:8138645.27,m:59},
-  {i:"PUCE",l:11,cl:232547,g:10,cg:494162.37,t:7499640.73,m:68},
-  {i:"ESPAM",l:20,cl:56004.58,g:28,cg:119009.74,t:4452364.25,m:21},
-  {i:"USGP",l:17,cl:11237.25,g:23,cg:23879.15,t:740253.74,m:38},
-  {i:"SUDAMER.",l:21,cl:4905.48,g:24,cg:10424.14,t:353194.40,m:19},
-  {i:"UTELVT",l:18,cl:3384.15,g:26,cg:7880.89,t:265817.78,m:40},
-  {i:"UPEC",l:22,cl:2721.64,g:26,cg:6338.06,t:224665.55,m:23},
-  {i:"ARMADA",l:19,cl:1854.76,g:27,cg:4319.29,t:151861.27,m:47},
-  {i:"MCUENCA",l:18,cl:2449.38,g:17,cg:5704.04,t:141057.60,m:56},
-  {i:"UNIANDES",l:19,cl:1944.45,g:18,cg:4131.97,t:111320.02,m:56},
-  {i:"ESPE",l:13,cl:2146.29,g:18,cg:4560.87,t:109997.41,m:73},
-  {i:"ISTE",l:14,cl:2104.25,g:18,cg:4471.54,t:109947.30,m:43},
-  {i:"UINPIAW",l:17,cl:1566.10,g:20,cg:3647.07,t:99565.15,m:32},
-  {i:"ITSCO",l:12,cl:2214.60,g:9,cg:4706.02,t:68929.42,m:87},
-  {i:"UTPL",l:9,cl:1655.15,g:12,cg:3517.18,t:57102.52,m:81},
-  {i:"UCUENCA",l:12,cl:1015.43,g:11,cg:2364.69,t:38196.68,m:73},
-  {i:"UNL",l:13,cl:754.95,g:13,cg:1758.11,t:32669.81,m:81},
-  {i:"IKIAM",l:5,cl:774.62,g:3,cg:1803.91,t:9284.83,m:77},
-  {i:"ESPOL",l:7,cl:517.05,g:0,cg:1204.08,t:3619.33,m:83},
-];
+  var multas=[
+    {i:"UCACUE",l:15,cl:312245,g:19,cg:663521,t:17290567,m:44},
+    {i:"UDA",l:18,cl:118759,g:29,cg:252363,t:9456196,m:53},
+    {i:"UPS",l:12,cl:176927,g:16,cg:375970,t:8138645,m:59},
+    {i:"PUCE",l:11,cl:232547,g:10,cg:494162,t:7499641,m:68},
+    {i:"ESPAM",l:20,cl:56005,g:28,cg:119010,t:4452364,m:21},
+    {i:"USGP",l:17,cl:11237,g:23,cg:23879,t:740254,m:38},
+    {i:"SUDAMER.",l:21,cl:4905,g:24,cg:10424,t:353194,m:19},
+    {i:"UTELVT",l:18,cl:3384,g:26,cg:7881,t:265818,m:40},
+    {i:"UPEC",l:22,cl:2722,g:26,cg:6338,t:224666,m:23},
+    {i:"ARMADA",l:19,cl:1855,g:27,cg:4319,t:151861,m:47},
+    {i:"MCUENCA",l:18,cl:2449,g:17,cg:5704,t:141058,m:56},
+    {i:"UNIANDES",l:19,cl:1944,g:18,cg:4132,t:111320,m:56},
+    {i:"ESPE",l:13,cl:2146,g:18,cg:4561,t:109997,m:73},
+    {i:"ISTE",l:14,cl:2104,g:18,cg:4472,t:109947,m:43},
+    {i:"UINPIAW",l:17,cl:1566,g:20,cg:3647,t:99565,m:32},
+    {i:"ITSCO",l:12,cl:2215,g:9,cg:4706,t:68929,m:87},
+    {i:"UTPL",l:9,cl:1655,g:12,cg:3517,t:57103,m:81},
+    {i:"UCUENCA",l:12,cl:1015,g:11,cg:2365,t:38197,m:73},
+    {i:"UNL",l:13,cl:755,g:13,cg:1758,t:32670,m:81},
+    {i:"IKIAM",l:5,cl:775,g:3,cg:1804,t:9285,m:77},
+    {i:"ESPOL",l:7,cl:517,g:0,cg:1204,t:3619,m:83}
+  ];
 
-const topIssues = [
-  {n:"Vuln.Servicio Medium",v:976},{n:"Vuln.Servicio High",v:838},
-  {n:"Credenciales Comp.",v:584},{n:"Vuln.Servicio Critical",v:578},
-  {n:"Patching High",v:544},{n:"Patching Medium",v:520},
-  {n:"TLS Self-Signed",v:312},{n:"TLS No Revocation",v:248},
-  {n:"Sin Policy CSP",v:211},{n:"Patching Critical",v:199},
-  {n:"X-Content-Type",v:197},{n:"Cred.Historicas",v:169},
-  {n:"HSTS Incorrecto",v:121},{n:"TLS Venc.Excesivo",v:83},
-  {n:"Unsafe SRI",v:47},
-];
+  var issues=[
+    {n:"Vuln Servicio Medium",v:976},{n:"Vuln Servicio High",v:838},
+    {n:"Credenciales Comp.",v:584},{n:"Vuln Servicio Critical",v:578},
+    {n:"Patching High",v:544},{n:"Patching Medium",v:520},
+    {n:"TLS Self-Signed",v:312},{n:"TLS No Revocation",v:248},
+    {n:"Sin Policy CSP",v:211},{n:"Patching Critical",v:199},
+    {n:"X-Content-Type",v:197},{n:"Cred. Historicas",v:169},
+    {n:"HSTS Incorrecto",v:121},{n:"TLS Venc. Excesivo",v:83},
+    {n:"Unsafe SRI",v:47}
+  ];
 
-const gradeColor={A:"#22d48a",B:"#29c6ff",C:"#f5a623",D:"#ff7b20",F:"#ff4d6d"};
+  var gc={A:"#22d48a",B:"#29c6ff",C:"#f5a623",D:"#ff7b20",F:"#ff4d6d"};
 
-// ── TABS ──────────────────────────────────────────────────────────────────
-function showPanel(id){
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  const idx=['p-overview','p-ranking','p-vulns','p-madurez','p-multas','p-mapa'].indexOf(id);
-  document.querySelectorAll('.tab')[idx].classList.add('active');
-  if(id==='p-mapa' && !mapInit) initMap();
-}
+  // ---- TABS ----
+  window.showPanel=function(id){
+    document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
+    document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});
+    document.getElementById(id).classList.add('active');
+    var ids=['p1','p2','p3','p4','p5','p6'];
+    document.querySelectorAll('.tab')[ids.indexOf(id)].classList.add('active');
+    if(id==='p6' && !window._mapInit) initMap();
+  };
 
-// ── CHARTS ────────────────────────────────────────────────────────────────
-const cPie={plugins:{legend:{labels:{color:'#a0aac0',font:{family:'Montserrat',size:10}}}}};
-const cBase={
-  plugins:{legend:{labels:{color:'#7080a0',font:{family:'Montserrat',size:10}}}},
-  scales:{
-    x:{ticks:{color:'#7080a0',font:{size:9}},grid:{color:'#1a2050'}},
-    y:{ticks:{color:'#7080a0',font:{size:9}},grid:{color:'#1a2050'}}
-  }
-};
+  // ---- CHARTS ----
+  var pie={plugins:{legend:{labels:{color:'#a0aac0',font:{family:'Montserrat',size:10}}}}};
+  var base={
+    plugins:{legend:{labels:{color:'#7080a0',font:{family:'Montserrat',size:10}}}},
+    scales:{x:{ticks:{color:'#7080a0',font:{size:9}},grid:{color:'#1a2050'}},
+            y:{ticks:{color:'#7080a0',font:{size:9}},grid:{color:'#1a2050'}}}
+  };
 
-new Chart(document.getElementById('chartSscGrade'),{
-  type:'doughnut',
-  data:{labels:['A (11)','B (15)','C (13)','D (13)','F (12)'],
-    datasets:[{data:[11,15,13,13,12],
-      backgroundColor:['#22d48a','#29c6ff','#f5a623','#ff7b20','#ff4d6d'],
-      borderColor:'#020029',borderWidth:2}]},
-  options:{...cPie,cutout:'65%'}
-});
+  new Chart(document.getElementById('c1'),{type:'doughnut',data:{labels:['A (11)','B (15)','C (13)','D (13)','F (12)'],datasets:[{data:[11,15,13,13,12],backgroundColor:['#22d48a','#29c6ff','#f5a623','#ff7b20','#ff4d6d'],borderColor:'#020029',borderWidth:2}]},options:Object.assign({},pie,{cutout:'65%'})});
+  new Chart(document.getElementById('c2'),{type:'doughnut',data:{labels:['A (11)','B (6)','C (14)','D (10)','F (17)'],datasets:[{data:[11,6,14,10,17],backgroundColor:['#22d48a','#29c6ff','#f5a623','#ff7b20','#ff4d6d'],borderColor:'#020029',borderWidth:2}]},options:Object.assign({},pie,{cutout:'65%'})});
+  new Chart(document.getElementById('c3'),{type:'bar',data:{labels:['Critical','High','Medium','Low','Info'],datasets:[{data:[578,1329,617,5626,2691],backgroundColor:['#ff4d6d','#ff7b20','#f5a623','#29c6ff88','#9b59b688'],borderRadius:4}]},options:{plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#7080a0',font:{size:8}},grid:{color:'#1a2050'}},y:{ticks:{color:'#7080a0',font:{size:8}},grid:{color:'#1a2050'}}}}});
+  new Chart(document.getElementById('c4'),{type:'doughnut',data:{labels:['Activas (9425)','Departed (7687)','Resolved (1279)'],datasets:[{data:[9425,7687,1279],backgroundColor:['#ff4d6d','#f5a623','#22d48a'],borderColor:'#020029',borderWidth:2}]},options:Object.assign({},pie,{cutout:'60%'})});
 
-new Chart(document.getElementById('chartNessusGrade'),{
-  type:'doughnut',
-  data:{labels:['A (11)','B (6)','C (14)','D (10)','F (17)'],
-    datasets:[{data:[11,6,14,10,17],
-      backgroundColor:['#22d48a','#29c6ff','#f5a623','#ff7b20','#ff4d6d'],
-      borderColor:'#020029',borderWidth:2}]},
-  options:{...cPie,cutout:'65%'}
-});
-
-new Chart(document.getElementById('chartSeveridad'),{
-  type:'bar',
-  data:{labels:['Critical','High','Medium','Low','Info'],
-    datasets:[{data:[578,1329,617,5626,2691],
-      backgroundColor:['#ff4d6d','#ff7b20','#f5a623','#29c6ff88','#9b59b688'],
-      borderRadius:4}]},
-  options:{...cBase,plugins:{legend:{display:false}}}
-});
-
-new Chart(document.getElementById('chartEstado'),{
-  type:'doughnut',
-  data:{labels:['Activas (9,425)','Departed (7,687)','Resolved (1,279)'],
-    datasets:[{data:[9425,7687,1279],
-      backgroundColor:['#ff4d6d','#f5a623','#22d48a'],
-      borderColor:'#020029',borderWidth:2}]},
-  options:{...cPie,cutout:'60%'}
-});
-
-new Chart(document.getElementById('chartTopIssues'),{
-  type:'bar',
-  data:{labels:topIssues.map(d=>d.n),
-    datasets:[{data:topIssues.map(d=>d.v),
-      backgroundColor:topIssues.map((_,i)=>`hsl(${195+i*8},80%,${55-i*1.5}%)`),
-      borderRadius:3}]},
-  options:{indexAxis:'y',
-    plugins:{legend:{display:false}},
-    scales:{
-      x:{ticks:{color:'#7080a0',font:{size:8}},grid:{color:'#1a2050'}},
-      y:{ticks:{color:'#c0cce0',font:{size:8}},grid:{display:false}}
-    }}
-});
-
-const mIES=["ITSCO","ESPOL","UNL","UTPL","IKIAM","UCUENCA","ESPE","PUCE","UPS","MCUENCA","UNIANDES","UDA","ARMADA","UCACUE","ISTE","UTELVT","USGP","UINPIAW","UPEC","ESPAM","SUDAMER."];
-const mVals=[87,83,81,81,77,73,73,68,59,56,56,53,47,44,43,40,38,32,23,21,19];
-
-new Chart(document.getElementById('chartMadurez'),{
-  type:'bar',
-  data:{labels:mIES,
-    datasets:[{data:mVals,
-      backgroundColor:mVals.map(v=>v>=73?'#22d48a':v>=40?'#29c6ff':v>=25?'#f5a623':'#ff4d6d'),
-      borderRadius:3}]},
-  options:{indexAxis:'y',
-    plugins:{legend:{display:false}},
-    scales:{
-      x:{max:100,ticks:{color:'#7080a0',font:{size:8}},grid:{color:'#1a2050'}},
-      y:{ticks:{color:'#c0cce0',font:{size:8}},grid:{display:false}}
-    }}
-});
-
-new Chart(document.getElementById('chartCuartiles'),{
-  type:'bar',
-  data:{labels:['Lideres >= P75','En Desarrollo','Zona Critica < P25'],
-    datasets:[{data:[6,10,5],
-      backgroundColor:['#22d48a','#29c6ff','#ff4d6d'],
-      borderRadius:4}]},
-  options:{
-    plugins:{legend:{display:false}},
-    scales:{
-      x:{ticks:{color:'#7080a0',font:{size:9}},grid:{display:false}},
-      y:{ticks:{color:'#7080a0',font:{size:9}},grid:{color:'#1a2050'}}
-    }}
-});
-
-new Chart(document.getElementById('chartMultas'),{
-  type:'bar',
-  data:{labels:multaData.map(d=>d.i),
-    datasets:[{label:'Riesgo Total ($)',data:multaData.map(d=>d.t),
-      backgroundColor:multaData.map(d=>d.t>2000000?'#ff4d6d':d.t>500000?'#f5a623':'#29c6ff88'),
-      borderRadius:3}]},
-  options:{indexAxis:'y',
-    plugins:{legend:{display:false},
-      tooltip:{callbacks:{label:c=>'$'+c.raw.toLocaleString('es-EC',{maximumFractionDigits:0})}}},
-    scales:{
-      x:{ticks:{color:'#7080a0',font:{size:8},callback:v=>'$'+(v/1000000).toFixed(1)+'M'},grid:{color:'#1a2050'}},
-      y:{ticks:{color:'#c0cce0',font:{size:8}},grid:{display:false}}
-    }}
-});
-
-new Chart(document.getElementById('chartInfracciones'),{
-  type:'bar',
-  data:{labels:multaData.map(d=>d.i),
-    datasets:[
-      {label:'Leves',data:multaData.map(d=>d.l),backgroundColor:'#29c6ff88',borderRadius:2},
-      {label:'Graves',data:multaData.map(d=>d.g),backgroundColor:'#ff4d6d99',borderRadius:2}
-    ]},
-  options:{indexAxis:'y',
-    plugins:{legend:{labels:{color:'#a0aac0',font:{size:9}}}},
-    scales:{
-      x:{ticks:{color:'#7080a0',font:{size:8}},grid:{color:'#1a2050'},stacked:true},
-      y:{ticks:{color:'#c0cce0',font:{size:8}},grid:{display:false},stacked:true}
-    }}
-});
-
-// ── RANKING TABLE & BARS ──────────────────────────────────────────────────
-const rb=document.getElementById('rankingBody');
-ranking.forEach((r,i)=>{
-  const tr=document.createElement('tr');
-  tr.innerHTML=`<td>${i+1}</td><td style="font-weight:600;color:#e2e3d5;">${r.i}</td>
-    <td>${r.s.toFixed(1)}</td>
-    <td><span class="badge badge-${r.g}">${r.g}</span></td>
-    <td>${r.ssc||'&mdash;'}</td><td>${r.nss||'&mdash;'}</td>`;
-  rb.appendChild(tr);
-});
-
-const t10=document.getElementById('top10bars');
-ranking.slice(0,10).forEach(r=>{
-  t10.innerHTML+=`<div class="pbar-wrap">
-    <div class="pbar-label">${r.i}</div>
-    <div class="pbar-outer"><div class="pbar-inner" style="width:${r.s}%;background:${gradeColor[r.g]};"></div></div>
-    <div class="pbar-val" style="color:${gradeColor[r.g]};">${r.s.toFixed(0)}</div>
-  </div>`;
-});
-const b10=document.getElementById('bot10bars');
-ranking.slice(-10).reverse().forEach(r=>{
-  b10.innerHTML+=`<div class="pbar-wrap">
-    <div class="pbar-label">${r.i}</div>
-    <div class="pbar-outer"><div class="pbar-inner" style="width:${Math.max(r.s,1)}%;background:${gradeColor[r.g]};"></div></div>
-    <div class="pbar-val" style="color:${gradeColor[r.g]};">${r.s.toFixed(0)}</div>
-  </div>`;
-});
-
-// ── MULTAS TABLE ──────────────────────────────────────────────────────────
-const media=2350233.11;
-const mb2=document.getElementById('multaBody');
-multaData.forEach(d=>{
-  const ratio=d.t/media;
-  const cls=d.t>5000000?'multa-hi':d.t>500000?'multa-med':'multa-lo';
-  const rt=ratio>1?`${ratio.toFixed(1)}x media`:'Bajo media';
-  mb2.innerHTML+=`<tr>
-    <td style="font-weight:600;color:#e2e3d5;">${d.i}</td>
-    <td>${d.l}</td>
-    <td>$${d.cl.toLocaleString('es-EC',{maximumFractionDigits:0})}</td>
-    <td>${d.g}</td>
-    <td>$${d.cg.toLocaleString('es-EC',{maximumFractionDigits:0})}</td>
-    <td class="${cls}">$${d.t.toLocaleString('es-EC',{maximumFractionDigits:0})}</td>
-    <td class="${cls}">${rt}</td>
-    <td>
-      <div style="display:flex;align-items:center;gap:4px;">
-        <div class="pbar-outer" style="width:60px;display:inline-block;">
-          <div class="pbar-inner" style="width:${d.m}%;background:${d.m>=70?'#22d48a':d.m>=40?'#f5a623':'#ff4d6d'};"></div>
-        </div>
-        <span style="font-size:9px;">${d.m}%</span>
-      </div>
-    </td>
-  </tr>`;
-});
-
-// ── MAP ───────────────────────────────────────────────────────────────────
-let mapInit=false, leafletMap=null, heatLayer=null, markersLayer=null;
-
-const iesGeo=[
-  [-0.3341,-78.4522,"ESPE",89.25,"B"],
-  [-0.2299,-78.5250,"UCE",75.0,"C"],
-  [-0.1900,-78.5100,"UDLA",91.0,"A"],
-  [-0.2500,-78.5400,"UISRAEL",80.5,"B"],
-  [-0.2200,-78.5150,"UTE",88.5,"B"],
-  [-0.2100,-78.5050,"IAEN",83.0,"B"],
-  [-0.2800,-78.5300,"CEDIA",87.0,"B"],
-  [-0.1972,-78.4369,"USFQ",89.5,"B"],
-  [-2.1960,-79.8860,"ESPOL",85.25,"B"],
-  [-2.2200,-79.9000,"UG",84.0,"B"],
-  [-2.2100,-79.8700,"UCSG",69.0,"D"],
-  [-2.1800,-79.8800,"ITB",59.5,"F"],
-  [-2.8950,-78.9960,"UCUENCA",77.5,"C"],
-  [-2.9100,-79.0100,"UDA",61.0,"D"],
-  [-2.8700,-78.9800,"UPS",83.5,"B"],
-  [-2.9300,-79.0300,"UCACUE",50.75,"F"],
-  [-1.6743,-78.6484,"ESPOCH",57.5,"F"],
-  [-1.6900,-78.6600,"UNACH",56.75,"F"],
-  [-1.2490,-78.6170,"UTA",66.25,"D"],
-  [-2.7397,-78.8486,"UNAE",74.5,"C"],
-  [-0.8458,-80.1639,"ESPAM",63.25,"D"],
-  [-0.9892,-77.8153,"IKIAM",93.75,"A"],
-  [-1.4916,-78.0034,"UEA",80.25,"B"],
-  [-1.5926,-79.0010,"UEB",78.0,"C"],
-  [0.2346,-78.2625,"UOTAVALO",80.5,"B"],
-  [0.8124,-77.7171,"UPEC",56.0,"F"],
-  [-1.0576,-80.4515,"USGP",56.75,"F"],
-  [-1.8038,-79.5351,"UTB",52.75,"F"],
-  [-0.9342,-78.6152,"UTC",74.0,"C"],
-  [0.9592,-79.6520,"UTELVT",60.5,"D"],
-  [-1.0286,-79.4635,"UTEQ",45.5,"F"],
-  [-3.2590,-79.9590,"UTMACH",67.0,"D"],
-  [0.3488,-78.1246,"UTN",97.25,"A"],
-  [-3.9930,-79.2040,"UNL",87.0,"B"],
-  [-2.1960,-79.8860,"UARTES",72.0,"C"],
-  [-0.2299,-78.5250,"PUCE",69.75,"D"],
-];
-
-function gradeHeat(g){return{A:1.0,B:0.75,C:0.5,D:0.3,F:0.15}[g]||0.1;}
-function gradeCol(g){return{A:"#22d48a",B:"#29c6ff",C:"#f5a623",D:"#ff7b20",F:"#ff4d6d"}[g]||"#aaa";}
-
-function initMap(){
-  mapInit=true;
-  leafletMap=L.map('map',{center:[-1.8,-78.2],zoom:6,attributionControl:false});
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:18}).addTo(leafletMap);
-  markersLayer=L.layerGroup().addTo(leafletMap);
-  renderMapLayer('all');
-}
-
-function renderMapLayer(filter){
-  if(!leafletMap) return;
-  if(heatLayer) leafletMap.removeLayer(heatLayer);
-  markersLayer.clearLayers();
-  const data=filter==='all'?iesGeo:iesGeo.filter(d=>d[4]===filter);
-  heatLayer=L.heatLayer(data.map(d=>[d[0],d[1],gradeHeat(d[4])]),{
-    radius:42,blur:32,maxZoom:8,
-    gradient:{0.15:'#ff4d6d',0.3:'#ff7b20',0.5:'#f5a623',0.75:'#29c6ff',1.0:'#22d48a'}
-  }).addTo(leafletMap);
-  data.forEach(d=>{
-    const c=gradeCol(d[4]);
-    L.circleMarker([d[0],d[1]],{radius:6,color:c,fillColor:c,fillOpacity:.85,weight:1.5})
-      .bindPopup(`<div style="font-family:Montserrat,sans-serif;font-size:11px;"><strong>${d[2]}</strong><br/>Score: <strong>${d[3]}</strong> &nbsp; Grado: <strong style="color:${c};">${d[4]}</strong></div>`)
-      .addTo(markersLayer);
+  new Chart(document.getElementById('c5'),{
+    type:'bar',
+    data:{labels:issues.map(function(d){return d.n;}),datasets:[{data:issues.map(function(d){return d.v;}),backgroundColor:issues.map(function(_,i){return 'hsl('+(195+i*8)+',80%,'+(55-i*1.5)+'%)';}),borderRadius:3}]},
+    options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#7080a0',font:{size:8}},grid:{color:'#1a2050'}},y:{ticks:{color:'#c0cce0',font:{size:8}},grid:{display:false}}}}
   });
-}
 
-function filterMap(g){ renderMapLayer(g); }
+  var mies=["ITSCO","ESPOL","UNL","UTPL","IKIAM","UCUENCA","ESPE","PUCE","UPS","MCUENCA","UNIANDES","UDA","ARMADA","UCACUE","ISTE","UTELVT","USGP","UINPIAW","UPEC","ESPAM","SUDAMER."];
+  var mval=[87,83,81,81,77,73,73,68,59,56,56,53,47,44,43,40,38,32,23,21,19];
+  new Chart(document.getElementById('c6'),{
+    type:'bar',
+    data:{labels:mies,datasets:[{data:mval,backgroundColor:mval.map(function(v){return v>=73?'#22d48a':v>=40?'#29c6ff':v>=25?'#f5a623':'#ff4d6d';}),borderRadius:3}]},
+    options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{max:100,ticks:{color:'#7080a0',font:{size:8}},grid:{color:'#1a2050'}},y:{ticks:{color:'#c0cce0',font:{size:8}},grid:{display:false}}}}
+  });
+
+  new Chart(document.getElementById('c7'),{
+    type:'bar',
+    data:{labels:['Lideres P75+','En Desarrollo','Zona Critica P25-'],datasets:[{data:[6,10,5],backgroundColor:['#22d48a','#29c6ff','#ff4d6d'],borderRadius:4}]},
+    options:{plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#7080a0',font:{size:9}},grid:{display:false}},y:{ticks:{color:'#7080a0',font:{size:9}},grid:{color:'#1a2050'}}}}
+  });
+
+  new Chart(document.getElementById('c8'),{
+    type:'bar',
+    data:{labels:multas.map(function(d){return d.i;}),datasets:[{label:'Riesgo Total ($)',data:multas.map(function(d){return d.t;}),backgroundColor:multas.map(function(d){return d.t>2000000?'#ff4d6d':d.t>500000?'#f5a623':'#29c6ff88';}),borderRadius:3}]},
+    options:{indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return '$'+c.raw.toLocaleString();}}}},scales:{x:{ticks:{color:'#7080a0',font:{size:8},callback:function(v){return '$'+(v/1000000).toFixed(1)+'M';}},grid:{color:'#1a2050'}},y:{ticks:{color:'#c0cce0',font:{size:8}},grid:{display:false}}}}
+  });
+
+  new Chart(document.getElementById('c9'),{
+    type:'bar',
+    data:{labels:multas.map(function(d){return d.i;}),datasets:[{label:'Leves',data:multas.map(function(d){return d.l;}),backgroundColor:'#29c6ff88',borderRadius:2},{label:'Graves',data:multas.map(function(d){return d.g;}),backgroundColor:'#ff4d6d99',borderRadius:2}]},
+    options:{indexAxis:'y',plugins:{legend:{labels:{color:'#a0aac0',font:{size:9}}}},scales:{x:{ticks:{color:'#7080a0',font:{size:8}},grid:{color:'#1a2050'},stacked:true},y:{ticks:{color:'#c0cce0',font:{size:8}},grid:{display:false},stacked:true}}}
+  });
+
+  // ---- RANKING TABLE ----
+  var rb=document.getElementById('rBody');
+  ranking.forEach(function(r,i){
+    var tr=document.createElement('tr');
+    tr.innerHTML='<td>'+(i+1)+'</td><td style="font-weight:600;color:#e2e3d5;">'+r.i+'</td><td>'+r.s.toFixed(1)+'</td><td><span class="badge b'+r.g+'">'+r.g+'</span></td><td>'+(r.ssc||'-')+'</td><td>'+(r.nss||'-')+'</td>';
+    rb.appendChild(tr);
+  });
+
+  var tb10=document.getElementById('tb10');
+  ranking.slice(0,10).forEach(function(r){
+    tb10.innerHTML+='<div class="pb"><div class="pbl">'+r.i+'</div><div class="pbo"><div class="pbi" style="width:'+r.s+'%;background:'+gc[r.g]+';"></div></div><div class="pbv" style="color:'+gc[r.g]+';">'+r.s.toFixed(0)+'</div></div>';
+  });
+
+  var bb10=document.getElementById('bb10');
+  ranking.slice(-10).reverse().forEach(function(r){
+    bb10.innerHTML+='<div class="pb"><div class="pbl">'+r.i+'</div><div class="pbo"><div class="pbi" style="width:'+Math.max(r.s,1)+'%;background:'+gc[r.g]+';"></div></div><div class="pbv" style="color:'+gc[r.g]+';">'+r.s.toFixed(0)+'</div></div>';
+  });
+
+  // ---- MULTAS TABLE ----
+  var media=2350233;
+  var mb=document.getElementById('mBody');
+  multas.forEach(function(d){
+    var ratio=d.t/media;
+    var cls=d.t>5000000?'mhi':d.t>500000?'mme':'mlo';
+    var rt=ratio>1?ratio.toFixed(1)+'x media':'Bajo media';
+    mb.innerHTML+='<tr><td style="font-weight:600;color:#e2e3d5;">'+d.i+'</td><td>'+d.l+'</td><td>$'+d.cl.toLocaleString()+'</td><td>'+d.g+'</td><td>$'+d.cg.toLocaleString()+'</td><td class="'+cls+'">$'+d.t.toLocaleString()+'</td><td class="'+cls+'">'+rt+'</td><td><div style="display:flex;align-items:center;gap:4px;"><div class="pbo" style="width:60px;display:inline-block;"><div class="pbi" style="width:'+d.m+'%;background:'+(d.m>=70?'#22d48a':d.m>=40?'#f5a623':'#ff4d6d')+';"></div></div><span style="font-size:9px;">'+d.m+'%</span></div></td></tr>';
+  });
+
+  // ---- MAP ----
+  var geo=[
+    [-0.3341,-78.4522,"ESPE",89.25,"B"],[-0.2299,-78.5250,"UCE",75.0,"C"],
+    [-0.1900,-78.5100,"UDLA",91.0,"A"],[-0.2500,-78.5400,"UISRAEL",80.5,"B"],
+    [-0.2200,-78.5150,"UTE",88.5,"B"],[-0.2100,-78.5050,"IAEN",83.0,"B"],
+    [-0.2800,-78.5300,"CEDIA",87.0,"B"],[-0.1972,-78.4369,"USFQ",89.5,"B"],
+    [-2.1960,-79.8860,"ESPOL",85.25,"B"],[-2.2200,-79.9000,"UG",84.0,"B"],
+    [-2.2100,-79.8700,"UCSG",69.0,"D"],[-2.1800,-79.8800,"ITB",59.5,"F"],
+    [-2.8950,-78.9960,"UCUENCA",77.5,"C"],[-2.9100,-79.0100,"UDA",61.0,"D"],
+    [-2.8700,-78.9800,"UPS",83.5,"B"],[-2.9300,-79.0300,"UCACUE",50.75,"F"],
+    [-1.6743,-78.6484,"ESPOCH",57.5,"F"],[-1.6900,-78.6600,"UNACH",56.75,"F"],
+    [-1.2490,-78.6170,"UTA",66.25,"D"],[-2.7397,-78.8486,"UNAE",74.5,"C"],
+    [-0.8458,-80.1639,"ESPAM",63.25,"D"],[-0.9892,-77.8153,"IKIAM",93.75,"A"],
+    [-1.4916,-78.0034,"UEA",80.25,"B"],[-1.5926,-79.0010,"UEB",78.0,"C"],
+    [0.2346,-78.2625,"UOTAVALO",80.5,"B"],[0.8124,-77.7171,"UPEC",56.0,"F"],
+    [-1.0576,-80.4515,"USGP",56.75,"F"],[-1.8038,-79.5351,"UTB",52.75,"F"],
+    [-0.9342,-78.6152,"UTC",74.0,"C"],[0.9592,-79.6520,"UTELVT",60.5,"D"],
+    [-1.0286,-79.4635,"UTEQ",45.5,"F"],[-3.2590,-79.9590,"UTMACH",67.0,"D"],
+    [0.3488,-78.1246,"UTN",97.25,"A"],[-3.9930,-79.2040,"UNL",87.0,"B"],
+    [-2.1960,-79.8860,"UARTES",72.0,"C"],[-0.2299,-78.5250,"PUCE",69.75,"D"]
+  ];
+
+  function gheat(g){return{A:1.0,B:0.75,C:0.5,D:0.3,F:0.15}[g]||0.1;}
+  function gcol(g){return{A:"#22d48a",B:"#29c6ff",C:"#f5a623",D:"#ff7b20",F:"#ff4d6d"}[g]||"#aaa";}
+
+  var lmap=null,hlayer=null,mlayer=null;
+  window._mapInit=false;
+
+  function initMap(){
+    window._mapInit=true;
+    lmap=L.map('map',{center:[-1.8,-78.2],zoom:6,attributionControl:false});
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:18}).addTo(lmap);
+    mlayer=L.layerGroup().addTo(lmap);
+    renderLayer('all');
+  }
+
+  function renderLayer(f){
+    if(!lmap) return;
+    if(hlayer) lmap.removeLayer(hlayer);
+    mlayer.clearLayers();
+    var data=f==='all'?geo:geo.filter(function(d){return d[4]===f;});
+    hlayer=L.heatLayer(data.map(function(d){return[d[0],d[1],gheat(d[4])];}),{radius:42,blur:32,maxZoom:8,gradient:{0.15:'#ff4d6d',0.3:'#ff7b20',0.5:'#f5a623',0.75:'#29c6ff',1.0:'#22d48a'}}).addTo(lmap);
+    data.forEach(function(d){
+      var c=gcol(d[4]);
+      L.circleMarker([d[0],d[1]],{radius:6,color:c,fillColor:c,fillOpacity:0.85,weight:1.5}).bindPopup('<div style="font-family:Montserrat,sans-serif;font-size:11px;"><strong>'+d[2]+'</strong><br/>Score: <strong>'+d[3]+'</strong> &nbsp; Grado: <strong style="color:'+c+';">'+d[4]+'</strong></div>').addTo(mlayer);
+    });
+  }
+
+  window.filterMap=function(g){renderLayer(g);};
+})();
 </script>
 </body>
 </html>
